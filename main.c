@@ -2,8 +2,8 @@
 #include<stdlib.h>
 #include<windows.h>
 #include<locale.h>
-#include"TorreHanoi.h"
-#include"style.h"
+#include"pilha_hanoi/TorreHanoi.h"
+#include"style/style.h"
 
 int menu();
 

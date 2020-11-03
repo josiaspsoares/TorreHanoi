@@ -4,7 +4,7 @@
 #include<locale.h>
 #include<windows.h>
 #include<math.h>
-#include"style.h"
+#include"../style/style.h"
 #include "TorreHanoi.h"
 
 Pilha *criaPilha(){
@@ -71,7 +71,22 @@ void exibePilha(Pilha *PilhaExibir){
         for (i=0; i<=((DISCOS_POR_PILHA * 2) - tamanho)/2; i++) {
             fputs(" ", stdout);
         }
+
         fputs(DiscoAuxiliar->representacao, stdout);
+
+        // if(DiscoAuxiliar->tamanho == 1){
+        //     printf(C_RED BOLD "%s" NONE, DiscoAuxiliar->representacao);
+        // }
+        // else if(DiscoAuxiliar->tamanho == 2){
+        //     printf(C_GREEN BOLD "%s" NONE, DiscoAuxiliar->representacao);
+        // }
+        // else if(DiscoAuxiliar->tamanho == 3){
+        //     printf(C_BLUE BOLD "%s" NONE, DiscoAuxiliar->representacao);
+        // }
+        // else if(DiscoAuxiliar->tamanho == 4){
+        //     printf(C_YELLOW BOLD "%s" NONE, DiscoAuxiliar->representacao);
+        // }
+        
 
         i += tamanho;
         for (; i<= (DISCOS_POR_PILHA * 2); i++) {
@@ -108,7 +123,7 @@ void removeDisco(Pilha *PilhaRemover){
 }
 
 int menuOpcoes(){
-	char opcao;
+	int opcao;
 
 	printf("\n\t 1 - PI -> PA");
     printf("\t 2 - PI -> PF");
