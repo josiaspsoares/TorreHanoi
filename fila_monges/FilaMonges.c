@@ -74,6 +74,7 @@ bool enqueue(Fila *FilaMonges){
         }
 
         FilaMonges->fim = NoAuxiliar;
+        FilaMonges->quantidade++;
         return true;
 
     }
@@ -97,6 +98,7 @@ bool dequeue(Fila *FilaMonges){
         }
 
         free(NoAuxiliar);
+        FilaMonges->quantidade--;
         return true;
     }
     else{
@@ -131,6 +133,9 @@ TipoMonge front(Fila *FilaMonges){
 }
 
 void playGame(Fila *FilaMonges){
-    interfaceMovimentacao(FilaMonges->inicio->Dados, FilaMonges->inicio->PilhaInicial, FilaMonges->inicio->PilhaAuxiliar, FilaMonges->inicio->PilhaFinal);
-    dequeue(FilaMonges);
+    while(!isEmpty(FilaMonges)){
+        interfaceMovimentacao(FilaMonges->inicio->Dados, FilaMonges->inicio->PilhaInicial, FilaMonges->inicio->PilhaAuxiliar, FilaMonges->inicio->PilhaFinal);
+        dequeue(FilaMonges);
+        system("cls");
+    }
 }

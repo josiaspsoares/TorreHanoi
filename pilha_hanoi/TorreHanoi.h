@@ -1,5 +1,5 @@
 #include"../tad/TipoMonge.h"
-#define DISCOS_POR_PILHA 4
+#define DISCOS_POR_PILHA 3
 
 typedef struct disco{
     int tamanho;

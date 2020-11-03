@@ -150,7 +150,7 @@ void interfaceMovimentacao(TipoMonge DadosMonge, Pilha *PilhaInicial, Pilha *Pil
     TipoDisco *DiscoAuxiliar = (TipoDisco*) calloc(1, sizeof(TipoDisco));
 
     do{
-        printf(C_GREEN BOLD "\t\t\t\t\t\t<<< TORRE DE HANOI >>\n\n");
+        printf(C_GREEN BOLD "\t\t\t\t\t\t<<< TORRE DE HANOI >>>\n\n");
         printf(C_BLACK BG_GRAY BOLD "\t\t<<< MONGE: %s  -  PONTOS: %d  -  MOVIMENTOS: %d  -  MÍNIMO: %d - ÚLTIMO: %s >>>\n\n" NONE, DadosMonge.nome, DadosMonge.pontos, DadosMonge.movimentos, movimentosMinimos, DadosMonge.ultimoMovimento);
         printf(NONE BOLD "\n\t\t\t\t\t\t*** PILHA INICIAL ***\n\n" C_MAGENTA);
         exibePilha(PilhaInicial);
@@ -160,7 +160,20 @@ void interfaceMovimentacao(TipoMonge DadosMonge, Pilha *PilhaInicial, Pilha *Pil
         exibePilha(PilhaFinal);
         printf(NONE "");
 
-        controlador = menuOpcoes();
+        if(DadosMonge.pontos == 9 && DadosMonge.movimentos == movimentosMinimos){
+            printf(C_GREEN BOLD "\n\t\t\t<<< PARABÉNS! VOCÊ CONSEGUIU COMPLETAR O JOGO COM O MÍNIMO DE MOVIMENTOS! >>>\n\n");
+            Sleep(10000);
+            return;
+        }
+        else if(DadosMonge.pontos == 9){
+            printf(C_GREEN BOLD "\n\t\t\t\t<<< PARABÉNS! VOCÊ CONSEGUIU COMPLETAR O JOGO! >>>\n\n");
+            Sleep(10000);
+            return;
+        }
+        else{
+            controlador = menuOpcoes();
+        }
+        
 
         if(controlador == 1 && PilhaInicial->ultimo != NULL && (PilhaAuxiliar->ultimo == NULL || (PilhaInicial->ultimo->tamanho < PilhaAuxiliar->ultimo->tamanho))){
             DiscoAuxiliar = PilhaInicial->ultimo;

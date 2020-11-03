@@ -11,23 +11,9 @@ int menu();
 int main(){
 
     setlocale(LC_ALL, "ptb");
+
     Fila *FilaMonges = create();
-
-    Pilha *PilhaInicial = NULL;
-    Pilha *PilhaAuxiliar = NULL;
-    Pilha *PilhaFinal = NULL;
-    
     int opcao;
-
-    PilhaInicial = criaPilha();
-    PilhaAuxiliar = criaPilha();
-    PilhaFinal = criaPilha();
-
-    if(PilhaInicial == NULL){
-        printf("\nErro: Não foi possível alocar memória para a Lista!\n");
-        exit(1);
-    }
-    constroiPilhaInicial(PilhaInicial);
 
     do{
         opcao = menu();
@@ -37,7 +23,6 @@ int main(){
                 break;
             case 2:
                 playGame(FilaMonges);
-                //interfaceMovimentacao(PilhaInicial, PilhaAuxiliar, PilhaFinal);
                 break;
             case 3:
                 display(FilaMonges);
