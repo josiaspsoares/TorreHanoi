@@ -37,15 +37,33 @@ bool isFull(Fila *FilaMonges){
     return false;
 }
 
-bool enqueue(Fila *FilaMonges, TipoMonge DadosMonge){
+void registerMonge(TipoMonge *DadosMonge){
+    printf("\t*** CADASTRO DE MONGE ***\n\n");
+	printf(" > Nome: ");
+    fflush(stdin);
+    gets(DadosMonge->nome);
+    DadosMonge->movimentos = 0;
+    DadosMonge->pontos = 0;
+    strcpy(DadosMonge->ultimoMovimento, "NULL");
+}
+
+bool enqueue(Fila *FilaMonges){
     if(!isFull(FilaMonges)){
+        TipoMonge *DadosMonge = (TipoMonge*) malloc(sizeof(TipoMonge));
         No *NoAuxiliar = (No*) malloc(sizeof(No));
 
         if(NoAuxiliar == NULL){
             return false;
         }
 
-        NoAuxiliar->Dados = DadosMonge;
+        registerMonge(DadosMonge);
+
+        NoAuxiliar->Dados = *DadosMonge;
+        NoAuxiliar->PilhaInicial = criaPilha();
+        NoAuxiliar->PilhaAuxiliar = criaPilha();
+        NoAuxiliar->PilhaFinal = criaPilha();
+        constroiPilhaInicial(NoAuxiliar->PilhaInicial);
+
         NoAuxiliar->proximo = NULL;
 
         if(FilaMonges->fim == NULL){
@@ -96,9 +114,10 @@ void display(Fila *FilaMonges){
     while(NoAuxiliar != NULL){
         printf("\nNome: %s", NoAuxiliar->Dados.nome);
         printf("\nPontos: %d", NoAuxiliar->Dados.pontos);
-        printf("\nMovimentos: %d", NoAuxiliar->Dados.movimentos);
+        printf("\nMovimentos: %d\n", NoAuxiliar->Dados.movimentos);
         NoAuxiliar = NoAuxiliar->proximo;
     }
+    system("pause");
 }
 
 TipoMonge front(Fila *FilaMonges){
@@ -109,4 +128,9 @@ TipoMonge front(Fila *FilaMonges){
         printf("\t<<< NÃO HÁ MONGES CADASTRADOS >>>\n\n");
         return;
     }
+}
+
+void playGame(Fila *FilaMonges){
+    interfaceMovimentacao(FilaMonges->inicio->Dados, FilaMonges->inicio->PilhaInicial, FilaMonges->inicio->PilhaAuxiliar, FilaMonges->inicio->PilhaFinal);
+    dequeue(FilaMonges);
 }

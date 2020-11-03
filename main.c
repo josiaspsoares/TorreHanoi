@@ -1,8 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<windows.h>
+#include<stdbool.h> 
 #include<locale.h>
-#include"pilha_hanoi/TorreHanoi.h"
+#include"fila_monges/FilaMonges.h"
 #include"style/style.h"
 
 int menu();
@@ -10,6 +11,7 @@ int menu();
 int main(){
 
     setlocale(LC_ALL, "ptb");
+    Fila *FilaMonges = create();
 
     Pilha *PilhaInicial = NULL;
     Pilha *PilhaAuxiliar = NULL;
@@ -31,13 +33,14 @@ int main(){
         opcao = menu();
         switch (opcao){
             case 1:
-                interfaceMovimentacao(PilhaInicial, PilhaAuxiliar, PilhaFinal);
+                enqueue(FilaMonges);
                 break;
             case 2:
-                
+                playGame(FilaMonges);
+                //interfaceMovimentacao(PilhaInicial, PilhaAuxiliar, PilhaFinal);
                 break;
             case 3:
-                
+                display(FilaMonges);
                 break;
             default: break;
         }
@@ -54,9 +57,9 @@ int menu(){
 
 	printf(NONE "\t*** MENU ***\n\n");
 	printf("-> Informe a opção desejada:\n");
-	printf("\n 1 - Costruir Torre");
-    printf("\n 2 - Exibir Torre");
-    printf("\n 3 - Remover Disco");
+	printf("\n 1 - Cadastrar Monge");
+    printf("\n 2 - Iniciar Jogo");
+    printf("\n 3 - Ranking");
 	printf("\n 0 - Sair");
 	printf("\n\n  ---> ");
 	scanf("%d", &opcao);

@@ -144,14 +144,14 @@ int menuOpcoes(){
 
 }
 
-void interfaceMovimentacao(Pilha *PilhaInicial, Pilha *PilhaAuxiliar, Pilha *PilhaFinal){
+void interfaceMovimentacao(TipoMonge DadosMonge, Pilha *PilhaInicial, Pilha *PilhaAuxiliar, Pilha *PilhaFinal){
     int controlador, pontos = 0, movimentos = 0, movimentosMinimos;
     movimentosMinimos = pow(2, DISCOS_POR_PILHA) - 1;
     TipoDisco *DiscoAuxiliar = (TipoDisco*) calloc(1, sizeof(TipoDisco));
 
     do{
         printf(C_GREEN BOLD "\t\t\t\t\t\t<<< TORRE DE HANOI >>\n\n");
-        printf(C_BLACK BG_GRAY BOLD "\t\t\t<<< MONGE: JOSIAS  -  PONTOS: %d  -  MOVIMENTOS: %d  -  MÍNIMO: %d >>>\n\n" NONE, pontos, movimentos, movimentosMinimos);
+        printf(C_BLACK BG_GRAY BOLD "\t\t<<< MONGE: %s  -  PONTOS: %d  -  MOVIMENTOS: %d  -  MÍNIMO: %d - ÚLTIMO: %s >>>\n\n" NONE, DadosMonge.nome, DadosMonge.pontos, DadosMonge.movimentos, movimentosMinimos, DadosMonge.ultimoMovimento);
         printf(NONE BOLD "\n\t\t\t\t\t\t*** PILHA INICIAL ***\n\n" C_MAGENTA);
         exibePilha(PilhaInicial);
         printf(NONE BOLD "\n\t\t\t\t\t\t*** PILHA AUXILIAR ***\n\n" C_RED);
@@ -166,41 +166,47 @@ void interfaceMovimentacao(Pilha *PilhaInicial, Pilha *PilhaAuxiliar, Pilha *Pil
             DiscoAuxiliar = PilhaInicial->ultimo;
             removeDisco(PilhaInicial);
             inserePilha(PilhaAuxiliar, DiscoAuxiliar);
-            movimentos++;      
+            DadosMonge.movimentos++;
+            strcpy(DadosMonge.ultimoMovimento, "PI -> PA");    
         }
         else if(controlador == 2 && PilhaInicial->ultimo != NULL && (PilhaFinal->ultimo == NULL || (PilhaInicial->ultimo->tamanho < PilhaFinal->ultimo->tamanho))){
             DiscoAuxiliar = PilhaInicial->ultimo;
             removeDisco(PilhaInicial);
             inserePilha(PilhaFinal, DiscoAuxiliar);
-            movimentos++;
-            pontos += 3; 
+            DadosMonge.movimentos++;
+            DadosMonge.pontos += 3;
+            strcpy(DadosMonge.ultimoMovimento, "PI -> PF");   
         }
         if(controlador == 3 && PilhaAuxiliar->ultimo != NULL && (PilhaInicial->ultimo == NULL || (PilhaAuxiliar->ultimo->tamanho < PilhaInicial->ultimo->tamanho))){
             DiscoAuxiliar = PilhaAuxiliar->ultimo;
             removeDisco(PilhaAuxiliar);
             inserePilha(PilhaInicial, DiscoAuxiliar);
-            movimentos++;       
+            DadosMonge.movimentos++;
+            strcpy(DadosMonge.ultimoMovimento, "PA -> PI");     
         }
         else if(controlador == 4 && PilhaAuxiliar->ultimo != NULL && (PilhaFinal->ultimo == NULL || (PilhaAuxiliar->ultimo->tamanho < PilhaFinal->ultimo->tamanho))){
             DiscoAuxiliar = PilhaAuxiliar->ultimo;
             removeDisco(PilhaAuxiliar);
             inserePilha(PilhaFinal, DiscoAuxiliar);
-            movimentos++;
-            pontos += 3;
+            DadosMonge.movimentos++;
+            DadosMonge.pontos += 3;
+            strcpy(DadosMonge.ultimoMovimento, "PA -> PF");   
         }
         if(controlador == 5 && PilhaFinal->ultimo != NULL && (PilhaInicial->ultimo == NULL || (PilhaFinal->ultimo->tamanho < PilhaInicial->ultimo->tamanho))){
             DiscoAuxiliar = PilhaFinal->ultimo;
             removeDisco(PilhaFinal);
             inserePilha(PilhaInicial, DiscoAuxiliar);
-            movimentos++;
-            pontos -= 3;  
+            DadosMonge.movimentos++;
+            DadosMonge.pontos -= 3;
+            strcpy(DadosMonge.ultimoMovimento, "PF -> PI");     
         }
         else if(controlador == 6 && PilhaFinal->ultimo != NULL && (PilhaAuxiliar->ultimo == NULL || (PilhaFinal->ultimo->tamanho < PilhaAuxiliar->ultimo->tamanho))){
             DiscoAuxiliar = PilhaFinal->ultimo;
             removeDisco(PilhaFinal);
             inserePilha(PilhaAuxiliar, DiscoAuxiliar);
-            movimentos++;
-            pontos -= 3;    
+            DadosMonge.movimentos++;
+            DadosMonge.pontos -= 3;
+            strcpy(DadosMonge.ultimoMovimento, "PF -> PA");       
         }
         else if(controlador == 0){
             return;      
