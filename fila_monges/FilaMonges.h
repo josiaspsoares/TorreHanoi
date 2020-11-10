@@ -1,4 +1,5 @@
 #include"../pilha_hanoi/TorreHanoi.h"
+#include"../lista_de_pontos/ListaPontos.h"
 
 typedef struct no{
     TipoMonge Dados;
@@ -15,6 +16,5 @@ bool isEmpty(Fila *FilaMonges);
 bool isFull(Fila *FilaMonges);
 bool enqueue(Fila *FilaMonges);
 bool dequeue(Fila *FilaMonges);
-TipoMonge front(Fila *FilaMonges);
 void display(Fila *FilaMonges);
-void playGame(Fila *FilaMonges);
+void playGame(Fila *FilaMonges, Lista *ListaPontos);

@@ -1,5 +1,6 @@
-#include"../tad/TipoMonge.h"
-#define DISCOS_POR_PILHA 3
+#include"../tad/tad_monge/TipoMonge.h"
+// #define DISCOS_POR_PILHA 3
+int DISCOS_POR_PILHA;
 
 typedef struct disco{
     int tamanho;
@@ -20,4 +21,4 @@ int inserePilha(Pilha *PilhaHanoi, TipoDisco *DiscoAuxiliar);
 void constroiPilhaInicial(Pilha *PilhaInicial);
 void exibePilha(Pilha *PilhaExibir);
 void removeDisco(Pilha *PilhaRemover);
-void interfaceMovimentacao(TipoMonge DadosMonge, Pilha *PilhaInicial, Pilha *PilhaAuxiliar, Pilha *PilhaFinal);
+void interfaceMovimentacao(TipoMonge *DadosMonge, Pilha *PilhaInicial, Pilha *PilhaAuxiliar, Pilha *PilhaFinal);

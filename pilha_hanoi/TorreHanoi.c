@@ -108,8 +108,6 @@ void removeDisco(Pilha *PilhaRemover){
 		return;
 	}
 
-    TipoDisco *DiscoAuxiliar = PilhaRemover->ultimo;
-
     if(PilhaRemover->quantidade == 1){
 		PilhaRemover->primeiro = NULL;
         PilhaRemover->ultimo = NULL;
@@ -144,14 +142,14 @@ int menuOpcoes(){
 
 }
 
-void interfaceMovimentacao(TipoMonge DadosMonge, Pilha *PilhaInicial, Pilha *PilhaAuxiliar, Pilha *PilhaFinal){
-    int controlador, pontos = 0, movimentos = 0, movimentosMinimos;
+void interfaceMovimentacao(TipoMonge *DadosMonge, Pilha *PilhaInicial, Pilha *PilhaAuxiliar, Pilha *PilhaFinal){
+    int controlador, movimentosMinimos;
     movimentosMinimos = pow(2, DISCOS_POR_PILHA) - 1;
     TipoDisco *DiscoAuxiliar = (TipoDisco*) calloc(1, sizeof(TipoDisco));
 
     do{
         printf(C_GREEN BOLD "\t\t\t\t\t\t<<< TORRE DE HANOI >>>\n\n");
-        printf(C_BLACK BG_GRAY BOLD "\t\t<<< MONGE: %s  -  PONTOS: %d  -  MOVIMENTOS: %d  -  MÍNIMO: %d - ÚLTIMO: %s >>>\n\n" NONE, DadosMonge.nome, DadosMonge.pontos, DadosMonge.movimentos, movimentosMinimos, DadosMonge.ultimoMovimento);
+        printf(C_BLACK BG_GRAY BOLD "\t\t<<< MONGE: %s  -  PONTOS: %d  -  MOVIMENTOS: %d  -  MÍNIMO: %d - ÚLTIMO: %s >>>\n\n" NONE, DadosMonge->nome, DadosMonge->pontos, DadosMonge->movimentos, movimentosMinimos, DadosMonge->ultimoMovimento);
         printf(NONE BOLD "\n\t\t\t\t\t\t*** PILHA INICIAL ***\n\n" C_MAGENTA);
         exibePilha(PilhaInicial);
         printf(NONE BOLD "\n\t\t\t\t\t\t*** PILHA AUXILIAR ***\n\n" C_RED);
@@ -160,12 +158,12 @@ void interfaceMovimentacao(TipoMonge DadosMonge, Pilha *PilhaInicial, Pilha *Pil
         exibePilha(PilhaFinal);
         printf(NONE "");
 
-        if(DadosMonge.pontos == 9 && DadosMonge.movimentos == movimentosMinimos){
+        if(DadosMonge->pontos == 9 && DadosMonge->movimentos == movimentosMinimos){
             printf(C_GREEN BOLD "\n\t\t\t<<< PARABÉNS! VOCÊ CONSEGUIU COMPLETAR O JOGO COM O MÍNIMO DE MOVIMENTOS! >>>\n\n");
             Sleep(10000);
             return;
         }
-        else if(DadosMonge.pontos == 9){
+        else if(DadosMonge->pontos == 9){
             printf(C_GREEN BOLD "\n\t\t\t\t<<< PARABÉNS! VOCÊ CONSEGUIU COMPLETAR O JOGO! >>>\n\n");
             Sleep(10000);
             return;
@@ -179,47 +177,47 @@ void interfaceMovimentacao(TipoMonge DadosMonge, Pilha *PilhaInicial, Pilha *Pil
             DiscoAuxiliar = PilhaInicial->ultimo;
             removeDisco(PilhaInicial);
             inserePilha(PilhaAuxiliar, DiscoAuxiliar);
-            DadosMonge.movimentos++;
-            strcpy(DadosMonge.ultimoMovimento, "PI -> PA");    
+            DadosMonge->movimentos++;
+            strcpy(DadosMonge->ultimoMovimento, "PI -> PA");    
         }
         else if(controlador == 2 && PilhaInicial->ultimo != NULL && (PilhaFinal->ultimo == NULL || (PilhaInicial->ultimo->tamanho < PilhaFinal->ultimo->tamanho))){
             DiscoAuxiliar = PilhaInicial->ultimo;
             removeDisco(PilhaInicial);
             inserePilha(PilhaFinal, DiscoAuxiliar);
-            DadosMonge.movimentos++;
-            DadosMonge.pontos += 3;
-            strcpy(DadosMonge.ultimoMovimento, "PI -> PF");   
+            DadosMonge->movimentos++;
+            DadosMonge->pontos += 3;
+            strcpy(DadosMonge->ultimoMovimento, "PI -> PF");   
         }
         if(controlador == 3 && PilhaAuxiliar->ultimo != NULL && (PilhaInicial->ultimo == NULL || (PilhaAuxiliar->ultimo->tamanho < PilhaInicial->ultimo->tamanho))){
             DiscoAuxiliar = PilhaAuxiliar->ultimo;
             removeDisco(PilhaAuxiliar);
             inserePilha(PilhaInicial, DiscoAuxiliar);
-            DadosMonge.movimentos++;
-            strcpy(DadosMonge.ultimoMovimento, "PA -> PI");     
+            DadosMonge->movimentos++;
+            strcpy(DadosMonge->ultimoMovimento, "PA -> PI");     
         }
         else if(controlador == 4 && PilhaAuxiliar->ultimo != NULL && (PilhaFinal->ultimo == NULL || (PilhaAuxiliar->ultimo->tamanho < PilhaFinal->ultimo->tamanho))){
             DiscoAuxiliar = PilhaAuxiliar->ultimo;
             removeDisco(PilhaAuxiliar);
             inserePilha(PilhaFinal, DiscoAuxiliar);
-            DadosMonge.movimentos++;
-            DadosMonge.pontos += 3;
-            strcpy(DadosMonge.ultimoMovimento, "PA -> PF");   
+            DadosMonge->movimentos++;
+            DadosMonge->pontos += 3;
+            strcpy(DadosMonge->ultimoMovimento, "PA -> PF");   
         }
         if(controlador == 5 && PilhaFinal->ultimo != NULL && (PilhaInicial->ultimo == NULL || (PilhaFinal->ultimo->tamanho < PilhaInicial->ultimo->tamanho))){
             DiscoAuxiliar = PilhaFinal->ultimo;
             removeDisco(PilhaFinal);
             inserePilha(PilhaInicial, DiscoAuxiliar);
-            DadosMonge.movimentos++;
-            DadosMonge.pontos -= 3;
-            strcpy(DadosMonge.ultimoMovimento, "PF -> PI");     
+            DadosMonge->movimentos++;
+            DadosMonge->pontos -= 3;
+            strcpy(DadosMonge->ultimoMovimento, "PF -> PI");     
         }
         else if(controlador == 6 && PilhaFinal->ultimo != NULL && (PilhaAuxiliar->ultimo == NULL || (PilhaFinal->ultimo->tamanho < PilhaAuxiliar->ultimo->tamanho))){
             DiscoAuxiliar = PilhaFinal->ultimo;
             removeDisco(PilhaFinal);
             inserePilha(PilhaAuxiliar, DiscoAuxiliar);
-            DadosMonge.movimentos++;
-            DadosMonge.pontos -= 3;
-            strcpy(DadosMonge.ultimoMovimento, "PF -> PA");       
+            DadosMonge->movimentos++;
+            DadosMonge->pontos -= 3;
+            strcpy(DadosMonge->ultimoMovimento, "PF -> PA");       
         }
         else if(controlador == 0){
             return;      

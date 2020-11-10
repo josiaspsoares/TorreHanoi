@@ -6,6 +6,7 @@
 #include"fila_monges/FilaMonges.h"
 #include"style/style.h"
 
+int menuInicial();
 int menu();
 
 int main(){
@@ -13,7 +14,10 @@ int main(){
     setlocale(LC_ALL, "ptb");
 
     Fila *FilaMonges = create();
+    Lista *ListaPontos = criaLista();
     int opcao;
+
+    DISCOS_POR_PILHA = menuInicial();
 
     do{
         opcao = menu();
@@ -22,10 +26,10 @@ int main(){
                 enqueue(FilaMonges);
                 break;
             case 2:
-                playGame(FilaMonges);
+                playGame(FilaMonges, ListaPontos);
                 break;
             case 3:
-                display(FilaMonges);
+                exibeRanking(ListaPontos);
                 break;
             default: break;
         }
@@ -35,18 +39,35 @@ int main(){
     return 0;
 }
 
+int menuInicial(){
+	int opcaoDiscos;
+
+    do{
+        system("cls");
+        printf(NONE BOLD "\n\n\t\t\t\t\t\t==================================\n" NONE);
+	    printf(C_GREEN BOLD "\n\n\t\t\t\t\t\t*** BEM-VINDO À TORRE DE HANÓI ***\n" NONE);
+        printf(NONE BOLD "\n\n\t\t\t\t\t\t==================================\n\n" NONE);
+	    printf(C_MAGENTA BOLD"\n\n\t\t\t\t\t 1 - Informe o número de discos (MAX = 7): " NONE);
+	    scanf("%d", &opcaoDiscos);
+    }while(opcaoDiscos <= 0 || opcaoDiscos > 7);	
+
+    return opcaoDiscos;
+}
+
 int menu(){
 	int opcao;
 
 	system("cls");
 
-	printf(NONE "\t*** MENU ***\n\n");
-	printf("-> Informe a opção desejada:\n");
-	printf("\n 1 - Cadastrar Monge");
-    printf("\n 2 - Iniciar Jogo");
-    printf("\n 3 - Ranking");
-	printf("\n 0 - Sair");
-	printf("\n\n  ---> ");
+    printf(NONE BOLD "\n\n\t\t\t\t\t\t===================================\n\n" NONE);
+	printf(C_RED BOLD "\t\t\t\t\t\t  *** TORRE DE HANÓI - MENU ***  \n\n" NONE);
+    printf(NONE BOLD "\t\t\t\t\t\t===================================\n\n" NONE);
+	printf(C_YELLOW "\t\t\t\t\t\t-> Informe a opção desejada:\n" NONE);
+	printf("\n\t\t\t\t\t\t 1 - Cadastrar Monge");
+    printf("\n\t\t\t\t\t\t 2 - Iniciar Jogo");
+    printf("\n\t\t\t\t\t\t 3 - Ranking");
+	printf("\n\t\t\t\t\t\t 0 - Sair");
+	printf(C_GREEN "\n\n\n\t\t\t\t\t\t  ---> " NONE);
 	scanf("%d", &opcao);
 
 	if(opcao >= 0 && opcao < 4){

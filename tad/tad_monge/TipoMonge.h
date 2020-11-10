@@ -4,3 +4,5 @@ typedef struct{
     int movimentos;
     int pontos;
 }TipoMonge;
+
+void registerMonge(TipoMonge *DadosMonge);

@@ -37,16 +37,6 @@ bool isFull(Fila *FilaMonges){
     return false;
 }
 
-void registerMonge(TipoMonge *DadosMonge){
-    printf("\t*** CADASTRO DE MONGE ***\n\n");
-	printf(" > Nome: ");
-    fflush(stdin);
-    gets(DadosMonge->nome);
-    DadosMonge->movimentos = 0;
-    DadosMonge->pontos = 0;
-    strcpy(DadosMonge->ultimoMovimento, "NULL");
-}
-
 bool enqueue(Fila *FilaMonges){
     if(!isFull(FilaMonges)){
         TipoMonge *DadosMonge = (TipoMonge*) malloc(sizeof(TipoMonge));
@@ -122,19 +112,17 @@ void display(Fila *FilaMonges){
     system("pause");
 }
 
-TipoMonge front(Fila *FilaMonges){
-    if(!isEmpty(FilaMonges)){
-        return FilaMonges->inicio->Dados;
-    }
-    else{
-        printf("\t<<< NÃO HÁ MONGES CADASTRADOS >>>\n\n");
-        return;
-    }
-}
+void playGame(Fila *FilaMonges, Lista *ListaPontos){
+    TipoPonto *DadosPontos = (TipoPonto*) malloc(sizeof(TipoPonto));
 
-void playGame(Fila *FilaMonges){
     while(!isEmpty(FilaMonges)){
-        interfaceMovimentacao(FilaMonges->inicio->Dados, FilaMonges->inicio->PilhaInicial, FilaMonges->inicio->PilhaAuxiliar, FilaMonges->inicio->PilhaFinal);
+        interfaceMovimentacao(&FilaMonges->inicio->Dados, FilaMonges->inicio->PilhaInicial, FilaMonges->inicio->PilhaAuxiliar, FilaMonges->inicio->PilhaFinal);
+
+        strcpy(DadosPontos->nomeMonge, FilaMonges->inicio->Dados.nome);
+        DadosPontos->pontos = FilaMonges->inicio->Dados.pontos;
+
+        insereListaOrdenada(ListaPontos, *DadosPontos);
+
         dequeue(FilaMonges);
         system("cls");
     }
