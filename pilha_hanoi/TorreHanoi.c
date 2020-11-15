@@ -158,12 +158,12 @@ void interfaceMovimentacao(TipoMonge *DadosMonge, Pilha *PilhaInicial, Pilha *Pi
         exibePilha(PilhaFinal);
         printf(NONE "");
 
-        if(DadosMonge->pontos == 9 && DadosMonge->movimentos == movimentosMinimos){
+        if(DadosMonge->pontos == MAX_PONTOS && DadosMonge->movimentos == movimentosMinimos){
             printf(C_GREEN BOLD "\n\t\t\t<<< PARABÉNS! VOCÊ CONSEGUIU COMPLETAR O JOGO COM O MÍNIMO DE MOVIMENTOS! >>>\n\n");
             Sleep(10000);
             return;
         }
-        else if(DadosMonge->pontos == 9){
+        else if(DadosMonge->pontos == MAX_PONTOS){
             printf(C_GREEN BOLD "\n\t\t\t\t<<< PARABÉNS! VOCÊ CONSEGUIU COMPLETAR O JOGO! >>>\n\n");
             Sleep(10000);
             return;

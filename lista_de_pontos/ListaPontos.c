@@ -1,5 +1,7 @@
 #include<stdlib.h>
 #include<stdio.h>
+#include<windows.h>
+#include"../style/style.h"
 #include"ListaPontos.h"
 
 Lista* criaLista(){
@@ -71,15 +73,19 @@ int insereListaOrdenada(Lista* ListaPontos, TipoPonto DadosPontos){
 
 void exibeRanking(Lista *ListaPontos){
     if(ListaPontos->quantidade == 0){
-        printf("\t<<< PARTIDA NÃO REEALIZADA! JOGUE E TENTE NOVAMENTE! >>>\n\n");
+        printf(C_RED BOLD"\n\n\t\t\t\t<<< PARTIDA NÃO REEALIZADA! JOGUE E TENTE NOVAMENTE! >>>\n\n" NONE);
+        Sleep(2000);
+        return;
     }
 
     Elemento *NoAuxiliar = ListaPontos->primeiro;
-    printf("\t*** RANKING ***\n\n");
+    printf(NONE BOLD "\n\n\t\t\t\t\t\t====================================\n" NONE);
+	printf(C_BLUE BOLD "\t\t\t\t\t\t  *** TORRE DE HANÓI - RANKING ***  \n" NONE);
+    printf(NONE BOLD "\t\t\t\t\t\t====================================\n\n" NONE);
     while(NoAuxiliar != NULL){
-        printf("\n > Nome: %s", NoAuxiliar->Dados.nomeMonge);
-        printf("\n > Pontos: %d\n", NoAuxiliar->Dados.pontos);
+        printf(C_GREEN BOLD "\n\t\t\t\t\t\t\t > Nome: %s" NONE, NoAuxiliar->Dados.nomeMonge);
+        printf("\n\t\t\t\t\t\t\t > Pontos: %d\n", NoAuxiliar->Dados.pontos);
         NoAuxiliar = NoAuxiliar->proximo;
     }
-    system("pause");
+    Sleep(6000);
 }

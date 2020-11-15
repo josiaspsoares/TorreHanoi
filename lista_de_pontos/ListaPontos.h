@@ -1,7 +1,4 @@
-typedef struct{
-    char nomeMonge[100];
-    int pontos;
-}TipoPonto;
+#include"../tad/tad_ponto/TipoPonto.h"
 
 struct elemento {
     TipoPonto Dados;

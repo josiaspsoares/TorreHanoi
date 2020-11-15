@@ -1,14 +1,8 @@
 #include"../tad/tad_monge/TipoMonge.h"
+#include"../tad/tad_disco/TipoDisco.h"
 // #define DISCOS_POR_PILHA 3
 int DISCOS_POR_PILHA;
-
-typedef struct disco{
-    int tamanho;
-    char representacao[15];
-
-    struct disco *under;
-    struct disco *above;
-}TipoDisco;
+int MAX_PONTOS;
 
 typedef struct pilha{
 	int quantidade;
