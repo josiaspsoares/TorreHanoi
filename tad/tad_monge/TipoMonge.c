@@ -13,5 +13,6 @@ void registerMonge(TipoMonge *DadosMonge){
     gets(DadosMonge->nome);
     DadosMonge->movimentos = 0;
     DadosMonge->pontos = 0;
+    DadosMonge->rodadas = 0;
     strcpy(DadosMonge->ultimoMovimento, "NULL");
 }

@@ -3,6 +3,7 @@
 // #define DISCOS_POR_PILHA 3
 int DISCOS_POR_PILHA;
 int MAX_PONTOS;
+int RODADAS;
 
 typedef struct pilha{
 	int quantidade;

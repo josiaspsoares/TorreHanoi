@@ -1,5 +1,6 @@
 #include<stdlib.h>
 #include<stdio.h>
+#include<string.h>
 #include<windows.h>
 #include"../style/style.h"
 #include"ListaPontos.h"
@@ -46,7 +47,7 @@ int insereListaOrdenada(Lista* ListaPontos, TipoPonto DadosPontos){
     else{
 		Elemento *anterior, *atual = ListaPontos->primeiro;
 
-		while(atual != NULL && atual->Dados.pontos > DadosPontos.pontos){
+		while(atual != NULL && atual->Dados.pontos >= DadosPontos.pontos){
 			anterior = atual;
 			atual = atual->proximo;
 		}
@@ -71,9 +72,25 @@ int insereListaOrdenada(Lista* ListaPontos, TipoPonto DadosPontos){
 	}
 }
 
+int atualizaDadosPontos(Lista* ListaPontos, TipoPonto DadosPontos){
+    if(ListaPontos == NULL) return 0;
+    
+	Elemento *atual = ListaPontos->primeiro;
+
+	while(atual != NULL && strcmp(atual->Dados.nomeMonge, DadosPontos.nomeMonge) != 0){
+		atual = atual->proximo;
+	}
+
+    atual->Dados.pontos += DadosPontos.pontos;
+    atual->Dados.movimentos += DadosPontos.movimentos;
+
+    return 1;
+	
+}
+
 void exibeRanking(Lista *ListaPontos){
     if(ListaPontos->quantidade == 0){
-        printf(C_RED BOLD"\n\n\t\t\t\t<<< PARTIDA NÃO REEALIZADA! JOGUE E TENTE NOVAMENTE! >>>\n\n" NONE);
+        printf(C_RED BOLD"\n\n\t\t\t\t<<< PARTIDA NÃO REALIZADA! JOGUE E TENTE NOVAMENTE! >>>\n\n" NONE);
         Sleep(2000);
         return;
     }
@@ -84,8 +101,10 @@ void exibeRanking(Lista *ListaPontos){
     printf(NONE BOLD "\t\t\t\t\t\t====================================\n\n" NONE);
     while(NoAuxiliar != NULL){
         printf(C_GREEN BOLD "\n\t\t\t\t\t\t\t > Nome: %s" NONE, NoAuxiliar->Dados.nomeMonge);
-        printf("\n\t\t\t\t\t\t\t > Pontos: %d\n", NoAuxiliar->Dados.pontos);
+        printf("\n\t\t\t\t\t\t\t > Pontos: %d", NoAuxiliar->Dados.pontos);
+        printf("\n\t\t\t\t\t\t\t > Movimentos: %d\n", NoAuxiliar->Dados.movimentos);
         NoAuxiliar = NoAuxiliar->proximo;
     }
     Sleep(6000);
 }
+

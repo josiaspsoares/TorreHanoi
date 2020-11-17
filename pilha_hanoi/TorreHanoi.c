@@ -145,11 +145,12 @@ int menuOpcoes(){
 void interfaceMovimentacao(TipoMonge *DadosMonge, Pilha *PilhaInicial, Pilha *PilhaAuxiliar, Pilha *PilhaFinal){
     int controlador, movimentosMinimos;
     movimentosMinimos = pow(2, DISCOS_POR_PILHA) - 1;
+    DadosMonge->rodadas++;
     TipoDisco *DiscoAuxiliar = (TipoDisco*) calloc(1, sizeof(TipoDisco));
 
     do{
         printf(C_GREEN BOLD "\t\t\t\t\t\t<<< TORRE DE HANOI >>>\n\n");
-        printf(C_BLACK BG_GRAY BOLD "\t\t<<< MONGE: %s  -  PONTOS: %d  -  MOVIMENTOS: %d  -  MÍNIMO: %d - ÚLTIMO: %s >>>\n\n" NONE, DadosMonge->nome, DadosMonge->pontos, DadosMonge->movimentos, movimentosMinimos, DadosMonge->ultimoMovimento);
+        printf(C_BLACK BG_GRAY BOLD "\t<<< MONGE: %s  -  RODADA: %d  -  PONTOS: %d  -  MOVIMENTOS: %d  -  MÍNIMO: %d - ÚLTIMO: %s >>>\n\n" NONE, DadosMonge->nome, DadosMonge->rodadas, DadosMonge->pontos, DadosMonge->movimentos, movimentosMinimos, DadosMonge->ultimoMovimento);
         printf(NONE BOLD "\n\t\t\t\t\t\t*** PILHA INICIAL ***\n\n" C_MAGENTA);
         exibePilha(PilhaInicial);
         printf(NONE BOLD "\n\t\t\t\t\t\t*** PILHA AUXILIAR ***\n\n" C_RED);

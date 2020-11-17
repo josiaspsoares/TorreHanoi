@@ -13,16 +13,19 @@ int main(){
 
     Fila *FilaMonges = create();
     Lista *ListaPontos = criaLista();
+    TipoMonge *DadosMonge = (TipoMonge*) malloc(sizeof(TipoMonge));
     int opcao;
 
     DISCOS_POR_PILHA = menuInicial();
     MAX_PONTOS = DISCOS_POR_PILHA * 3;
+    RODADAS = menuRodadas();
 
     do{
         opcao = menu();
         switch (opcao){
             case 1:
-                enqueue(FilaMonges);
+                registerMonge(DadosMonge);
+                enqueue(FilaMonges, DadosMonge);
                 break;
             case 2:
                 if(isEmpty(FilaMonges)){

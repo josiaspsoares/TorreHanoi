@@ -37,16 +37,13 @@ bool isFull(Fila *FilaMonges){
     return false;
 }
 
-bool enqueue(Fila *FilaMonges){
+bool enqueue(Fila *FilaMonges, TipoMonge *DadosMonge){
     if(!isFull(FilaMonges)){
-        TipoMonge *DadosMonge = (TipoMonge*) malloc(sizeof(TipoMonge));
         No *NoAuxiliar = (No*) malloc(sizeof(No));
 
         if(NoAuxiliar == NULL){
             return false;
         }
-
-        registerMonge(DadosMonge);
 
         NoAuxiliar->Dados = *DadosMonge;
         NoAuxiliar->PilhaInicial = criaPilha();
@@ -97,33 +94,37 @@ bool dequeue(Fila *FilaMonges){
     }
 }
 
-void display(Fila *FilaMonges){
-    if(FilaMonges == NULL){
-        printf("\t<<< NÃO HÁ MONGES CADASTRADOS >>>\n\n");
-    }
-
-    No *NoAuxiliar = FilaMonges->inicio;
-    while(NoAuxiliar != NULL){
-        printf("\nNome: %s", NoAuxiliar->Dados.nome);
-        printf("\nPontos: %d", NoAuxiliar->Dados.pontos);
-        printf("\nMovimentos: %d\n", NoAuxiliar->Dados.movimentos);
-        NoAuxiliar = NoAuxiliar->proximo;
-    }
-    system("pause");
-}
-
 void playGame(Fila *FilaMonges, Lista *ListaPontos){
     TipoPonto *DadosPontos = (TipoPonto*) malloc(sizeof(TipoPonto));
 
-    while(!isEmpty(FilaMonges)){
+    while(!isEmpty(FilaMonges) && FilaMonges->inicio->Dados.rodadas < RODADAS){
         interfaceMovimentacao(&FilaMonges->inicio->Dados, FilaMonges->inicio->PilhaInicial, FilaMonges->inicio->PilhaAuxiliar, FilaMonges->inicio->PilhaFinal);
 
         strcpy(DadosPontos->nomeMonge, FilaMonges->inicio->Dados.nome);
         DadosPontos->pontos = FilaMonges->inicio->Dados.pontos;
+        DadosPontos->movimentos = FilaMonges->inicio->Dados.movimentos;
 
-        insereListaOrdenada(ListaPontos, *DadosPontos);
+        FilaMonges->inicio->Dados.pontos = 0;
+        FilaMonges->inicio->Dados.movimentos = 0;
+        strcpy(FilaMonges->inicio->Dados.ultimoMovimento, "NULL");
 
-        dequeue(FilaMonges);
+        if(FilaMonges->inicio->Dados.rodadas == 1){
+            insereListaOrdenada(ListaPontos, *DadosPontos);
+        }
+        else{
+            atualizaDadosPontos(ListaPontos, *DadosPontos);
+        }
+        
+
+        if(FilaMonges->inicio->Dados.rodadas == RODADAS){
+            dequeue(FilaMonges);
+        }
+        else{
+            enqueue(FilaMonges, &FilaMonges->inicio->Dados);
+            dequeue(FilaMonges);
+        }
+
+        
         system("cls");
     }
 }

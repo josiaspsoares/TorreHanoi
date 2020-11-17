@@ -17,6 +17,21 @@ int menuInicial(){
     return opcaoDiscos;
 }
 
+int menuRodadas(){
+	int opcaoRodadas;
+
+    do{
+        system("cls");
+        printf(NONE BOLD "\n\n\t\t\t\t\t\t==================================\n" NONE);
+	    printf(C_GREEN BOLD "\n\t\t\t\t\t\t*** BEM-VINDO À TORRE DE HANÓI ***\n" NONE);
+        printf(NONE BOLD "\n\t\t\t\t\t\t==================================\n\n" NONE);
+	    printf(C_MAGENTA BOLD"\n\t\t\t\t\t 2 - Informe o número de rodadas (MIN = 1): " NONE);
+	    scanf("%d", &opcaoRodadas);
+    }while(opcaoRodadas <= 0);	
+
+    return opcaoRodadas;
+}
+
 int menu(){
 	int opcao;
 

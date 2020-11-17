@@ -14,7 +14,6 @@ typedef struct fila Fila;
 Fila *create();
 bool isEmpty(Fila *FilaMonges);
 bool isFull(Fila *FilaMonges);
-bool enqueue(Fila *FilaMonges);
+bool enqueue(Fila *FilaMonges, TipoMonge *DadosMonge);
 bool dequeue(Fila *FilaMonges);
-void display(Fila *FilaMonges);
 void playGame(Fila *FilaMonges, Lista *ListaPontos);
