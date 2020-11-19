@@ -3,6 +3,7 @@ typedef struct{
     char ultimoMovimento[15];
     int movimentos;
     int pontos;
+    int totalPontos;
     int rodadas;
 }TipoMonge;
 

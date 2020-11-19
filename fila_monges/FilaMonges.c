@@ -95,27 +95,23 @@ bool dequeue(Fila *FilaMonges){
 }
 
 void playGame(Fila *FilaMonges, Lista *ListaPontos){
-    TipoPonto *DadosPontos = (TipoPonto*) malloc(sizeof(TipoPonto));
 
     while(!isEmpty(FilaMonges) && FilaMonges->inicio->Dados.rodadas < RODADAS){
         interfaceMovimentacao(&FilaMonges->inicio->Dados, FilaMonges->inicio->PilhaInicial, FilaMonges->inicio->PilhaAuxiliar, FilaMonges->inicio->PilhaFinal);
 
+        TipoPonto *DadosPontos = (TipoPonto*) calloc(1, sizeof(TipoPonto));
         strcpy(DadosPontos->nomeMonge, FilaMonges->inicio->Dados.nome);
-        DadosPontos->pontos = FilaMonges->inicio->Dados.pontos;
-        DadosPontos->movimentos = FilaMonges->inicio->Dados.movimentos;
+        FilaMonges->inicio->Dados.totalPontos += FilaMonges->inicio->Dados.pontos;
+        DadosPontos->pontos = FilaMonges->inicio->Dados.totalPontos;
 
+        if(FilaMonges->inicio->Dados.rodadas == RODADAS){
+            insereListaOrdenada(ListaPontos, *DadosPontos);
+        }
+        
         FilaMonges->inicio->Dados.pontos = 0;
         FilaMonges->inicio->Dados.movimentos = 0;
         strcpy(FilaMonges->inicio->Dados.ultimoMovimento, "NULL");
-
-        if(FilaMonges->inicio->Dados.rodadas == 1){
-            insereListaOrdenada(ListaPontos, *DadosPontos);
-        }
-        else{
-            atualizaDadosPontos(ListaPontos, *DadosPontos);
-        }
         
-
         if(FilaMonges->inicio->Dados.rodadas == RODADAS){
             dequeue(FilaMonges);
         }
@@ -124,7 +120,6 @@ void playGame(Fila *FilaMonges, Lista *ListaPontos){
             dequeue(FilaMonges);
         }
 
-        
         system("cls");
     }
 }

@@ -58,6 +58,12 @@ int insereListaOrdenada(Lista* ListaPontos, TipoPonto DadosPontos){
 			no->proximo = ListaPontos->primeiro;
 			ListaPontos->primeiro = no;
 		}
+        else if(atual == ListaPontos->ultimo){
+			no->proximo = NULL;
+			ListaPontos->ultimo->proximo = no;
+			no->anterior = ListaPontos->ultimo;
+			ListaPontos->ultimo = no;
+		}
 		else{
 			no->proximo = anterior->proximo;
 			no->anterior = anterior;
@@ -70,22 +76,6 @@ int insereListaOrdenada(Lista* ListaPontos, TipoPonto DadosPontos){
         ListaPontos->quantidade++;
         return 1;
 	}
-}
-
-int atualizaDadosPontos(Lista* ListaPontos, TipoPonto DadosPontos){
-    if(ListaPontos == NULL) return 0;
-    
-	Elemento *atual = ListaPontos->primeiro;
-
-	while(atual != NULL && strcmp(atual->Dados.nomeMonge, DadosPontos.nomeMonge) != 0){
-		atual = atual->proximo;
-	}
-
-    atual->Dados.pontos += DadosPontos.pontos;
-    atual->Dados.movimentos += DadosPontos.movimentos;
-
-    return 1;
-	
 }
 
 void exibeRanking(Lista *ListaPontos){
@@ -101,8 +91,7 @@ void exibeRanking(Lista *ListaPontos){
     printf(NONE BOLD "\t\t\t\t\t\t====================================\n\n" NONE);
     while(NoAuxiliar != NULL){
         printf(C_GREEN BOLD "\n\t\t\t\t\t\t\t > Nome: %s" NONE, NoAuxiliar->Dados.nomeMonge);
-        printf("\n\t\t\t\t\t\t\t > Pontos: %d", NoAuxiliar->Dados.pontos);
-        printf("\n\t\t\t\t\t\t\t > Movimentos: %d\n", NoAuxiliar->Dados.movimentos);
+        printf("\n\t\t\t\t\t\t\t > Pontos: %d\n", NoAuxiliar->Dados.pontos);
         NoAuxiliar = NoAuxiliar->proximo;
     }
     Sleep(6000);
