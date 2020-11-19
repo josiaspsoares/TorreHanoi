@@ -12,8 +12,8 @@ Pilha *criaPilha(){
 	PilhaInicial = (Pilha*) malloc(sizeof(Pilha));
 
 	PilhaInicial->quantidade = 0;
-	PilhaInicial->primeiro = NULL;
-	PilhaInicial->ultimo = NULL;
+	PilhaInicial->base = NULL;
+	PilhaInicial->topo = NULL;
 
 	return PilhaInicial;
 }
@@ -41,15 +41,15 @@ int inserePilha(Pilha *PilhaHanoi, TipoDisco *DiscoAuxiliar){
 	DiscoAuxiliar->above = NULL;
 
 	if(PilhaHanoi->quantidade == 0){
-		PilhaHanoi->primeiro = DiscoAuxiliar;
+		PilhaHanoi->base = DiscoAuxiliar;
 		DiscoAuxiliar->under = NULL;
 	}
 	else{
-		PilhaHanoi->ultimo->above = DiscoAuxiliar;
-		DiscoAuxiliar->under = PilhaHanoi->ultimo;
+		PilhaHanoi->topo->above = DiscoAuxiliar;
+		DiscoAuxiliar->under = PilhaHanoi->topo;
 	}
 
-	PilhaHanoi->ultimo = DiscoAuxiliar;
+	PilhaHanoi->topo = DiscoAuxiliar;
 	PilhaHanoi->quantidade++;
 
     return 1;
@@ -62,7 +62,7 @@ void exibePilha(Pilha *PilhaExibir){
 	}
 
 	TipoDisco *DiscoAuxiliar;
-	DiscoAuxiliar = PilhaExibir->ultimo;
+	DiscoAuxiliar = PilhaExibir->topo;
     
 	while(DiscoAuxiliar != NULL){
         int i, tamanho = strlen(DiscoAuxiliar->representacao);
@@ -109,12 +109,12 @@ void removeDisco(Pilha *PilhaRemover){
 	}
 
     if(PilhaRemover->quantidade == 1){
-		PilhaRemover->primeiro = NULL;
-        PilhaRemover->ultimo = NULL;
+		PilhaRemover->base = NULL;
+        PilhaRemover->topo = NULL;
     }
     else{
-        PilhaRemover->ultimo->under->above = NULL;
-        PilhaRemover->ultimo = PilhaRemover->ultimo->under;
+        PilhaRemover->topo->under->above = NULL;
+        PilhaRemover->topo = PilhaRemover->topo->under;
     }
    
     PilhaRemover->quantidade--;
@@ -174,46 +174,46 @@ void interfaceMovimentacao(TipoMonge *DadosMonge, Pilha *PilhaInicial, Pilha *Pi
         }
         
 
-        if(controlador == 1 && PilhaInicial->ultimo != NULL && (PilhaAuxiliar->ultimo == NULL || (PilhaInicial->ultimo->tamanho < PilhaAuxiliar->ultimo->tamanho))){
-            DiscoAuxiliar = PilhaInicial->ultimo;
+        if(controlador == 1 && PilhaInicial->topo != NULL && (PilhaAuxiliar->topo == NULL || (PilhaInicial->topo->tamanho < PilhaAuxiliar->topo->tamanho))){
+            DiscoAuxiliar = PilhaInicial->topo;
             removeDisco(PilhaInicial);
             inserePilha(PilhaAuxiliar, DiscoAuxiliar);
             DadosMonge->movimentos++;
             strcpy(DadosMonge->ultimoMovimento, "PI -> PA");    
         }
-        else if(controlador == 2 && PilhaInicial->ultimo != NULL && (PilhaFinal->ultimo == NULL || (PilhaInicial->ultimo->tamanho < PilhaFinal->ultimo->tamanho))){
-            DiscoAuxiliar = PilhaInicial->ultimo;
+        else if(controlador == 2 && PilhaInicial->topo != NULL && (PilhaFinal->topo == NULL || (PilhaInicial->topo->tamanho < PilhaFinal->topo->tamanho))){
+            DiscoAuxiliar = PilhaInicial->topo;
             removeDisco(PilhaInicial);
             inserePilha(PilhaFinal, DiscoAuxiliar);
             DadosMonge->movimentos++;
             DadosMonge->pontos += 3;
             strcpy(DadosMonge->ultimoMovimento, "PI -> PF");   
         }
-        if(controlador == 3 && PilhaAuxiliar->ultimo != NULL && (PilhaInicial->ultimo == NULL || (PilhaAuxiliar->ultimo->tamanho < PilhaInicial->ultimo->tamanho))){
-            DiscoAuxiliar = PilhaAuxiliar->ultimo;
+        if(controlador == 3 && PilhaAuxiliar->topo != NULL && (PilhaInicial->topo == NULL || (PilhaAuxiliar->topo->tamanho < PilhaInicial->topo->tamanho))){
+            DiscoAuxiliar = PilhaAuxiliar->topo;
             removeDisco(PilhaAuxiliar);
             inserePilha(PilhaInicial, DiscoAuxiliar);
             DadosMonge->movimentos++;
             strcpy(DadosMonge->ultimoMovimento, "PA -> PI");     
         }
-        else if(controlador == 4 && PilhaAuxiliar->ultimo != NULL && (PilhaFinal->ultimo == NULL || (PilhaAuxiliar->ultimo->tamanho < PilhaFinal->ultimo->tamanho))){
-            DiscoAuxiliar = PilhaAuxiliar->ultimo;
+        else if(controlador == 4 && PilhaAuxiliar->topo != NULL && (PilhaFinal->topo == NULL || (PilhaAuxiliar->topo->tamanho < PilhaFinal->topo->tamanho))){
+            DiscoAuxiliar = PilhaAuxiliar->topo;
             removeDisco(PilhaAuxiliar);
             inserePilha(PilhaFinal, DiscoAuxiliar);
             DadosMonge->movimentos++;
             DadosMonge->pontos += 3;
             strcpy(DadosMonge->ultimoMovimento, "PA -> PF");   
         }
-        if(controlador == 5 && PilhaFinal->ultimo != NULL && (PilhaInicial->ultimo == NULL || (PilhaFinal->ultimo->tamanho < PilhaInicial->ultimo->tamanho))){
-            DiscoAuxiliar = PilhaFinal->ultimo;
+        if(controlador == 5 && PilhaFinal->topo != NULL && (PilhaInicial->topo == NULL || (PilhaFinal->topo->tamanho < PilhaInicial->topo->tamanho))){
+            DiscoAuxiliar = PilhaFinal->topo;
             removeDisco(PilhaFinal);
             inserePilha(PilhaInicial, DiscoAuxiliar);
             DadosMonge->movimentos++;
             DadosMonge->pontos -= 3;
             strcpy(DadosMonge->ultimoMovimento, "PF -> PI");     
         }
-        else if(controlador == 6 && PilhaFinal->ultimo != NULL && (PilhaAuxiliar->ultimo == NULL || (PilhaFinal->ultimo->tamanho < PilhaAuxiliar->ultimo->tamanho))){
-            DiscoAuxiliar = PilhaFinal->ultimo;
+        else if(controlador == 6 && PilhaFinal->topo != NULL && (PilhaAuxiliar->topo == NULL || (PilhaFinal->topo->tamanho < PilhaAuxiliar->topo->tamanho))){
+            DiscoAuxiliar = PilhaFinal->topo;
             removeDisco(PilhaFinal);
             inserePilha(PilhaAuxiliar, DiscoAuxiliar);
             DadosMonge->movimentos++;

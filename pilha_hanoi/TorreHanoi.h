@@ -7,8 +7,8 @@ int RODADAS;
 
 typedef struct pilha{
 	int quantidade;
-	TipoDisco *primeiro;
-	TipoDisco *ultimo;
+	TipoDisco *base;
+	TipoDisco *topo;
 }Pilha;
 
 Pilha *criaPilha();
