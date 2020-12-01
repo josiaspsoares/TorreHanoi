@@ -4,7 +4,9 @@
 Simulador do jogo Torre de Hanói em C
 
 Atividades Práticas Supervisionadas II – APS II -  Torre de Hanói
+
 DISCIPLINA: Laboratório de Estruturas de Dados
+
 PROFESSOR: M.Sc. Elias Gonçalves
 
 Você foi contratado para desenvolver um jogo para uns monges que estão tentando mover 7 discos de tamanhos diferentes de uma pilha (início) para outra pilha (final), usando uma terceira pilha como auxiliar, de tal forma que nunca um disco maior pode ser colocado sobre um disco menor.
